@@ -18,13 +18,12 @@ class UpdateController extends Controller
         //authorize
 
         UpdatePost::dispatch(
-             object: PostFactory::create(
+            postID: $post->id,
+            object: PostFactory::create(
                 attributes: $request->validated(),
             ),
-            post: $post
         );
 
-        $post->fresh();
         return response(
             content: null,
             status: Http::ACCEPTED,

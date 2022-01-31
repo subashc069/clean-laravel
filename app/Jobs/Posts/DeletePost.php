@@ -1,18 +1,15 @@
 <?php
-declare(strict_types=1);
+
 namespace App\Jobs\Posts;
 
-use Domain\Blogging\Actions\UpdatePost as UpdatePostAction;
 use Domain\Blogging\Models\Post;
-use Domain\Blogging\ValueObjects\PostValueObject;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class UpdatePost implements ShouldQueue
+class DeletePost implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -20,16 +17,13 @@ class UpdatePost implements ShouldQueue
     use SerializesModels;
 
     public function __construct(
-        public int $postID,
-        public PostValueObject $object,
-    ) {}
+        public int $postID
+    )
+    { }
 
-    public function handle()
+    public function handle(): void
     {
         $post = Post::find($this->postID);
-        UpdatePostAction::handle(
-            object:  $this->object,
-            post: $post,
-        );
+        $post->delete();
     }
 }
