@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\V1\Posts;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Posts\UpdateRequest;
-use App\Jobs\Posts\UpdatePost;
+use Domain\Blogging\Jobs\Posts\UpdatePost;
 use Domain\Blogging\Factories\PostFactory;
 use Domain\Blogging\Models\Post;
 use Illuminate\Http\Response;

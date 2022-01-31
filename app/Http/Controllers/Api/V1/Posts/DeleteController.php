@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers\Api\V1\Posts;
 
 use App\Http\Controllers\Controller;
-use App\Jobs\Posts\DeletePost;
+use Domain\Blogging\Jobs\Posts\DeletePost;
 use Domain\Blogging\Models\Post;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;

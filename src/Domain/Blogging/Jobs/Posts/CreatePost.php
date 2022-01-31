@@ -1,15 +1,16 @@
 <?php
 
-namespace App\Jobs\Posts;
+namespace Domain\Blogging\Jobs\Posts;
 
-use Domain\Blogging\Models\Post;
+use Domain\Blogging\Actions\CreatePost as CreatePostAction;
+use Domain\Blogging\ValueObjects\PostValueObject;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-class DeletePost implements ShouldQueue
+class CreatePost implements ShouldQueue
 {
     use Dispatchable;
     use InteractsWithQueue;
@@ -17,13 +18,14 @@ class DeletePost implements ShouldQueue
     use SerializesModels;
 
     public function __construct(
-        public int $postID
+        public PostValueObject $object
     )
-    { }
+    {}
 
-    public function handle(): void
+    public function handle()
     {
-        $post = Post::find($this->postID);
-        $post->delete();
+        CreatePostAction::handle(
+            object: $this->object
+        );
     }
 }
