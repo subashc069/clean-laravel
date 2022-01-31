@@ -2,8 +2,7 @@
 declare(strict_types=1);
 namespace Database\Seeders;
 
-use App\Models\User;
-use Database\Factories\UserFactory;
+use Domain\Shared\Models\User;
 use Illuminate\Database\Seeder;
 
 class DefaultUserSeeder extends Seeder

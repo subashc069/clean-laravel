@@ -3,11 +3,13 @@ declare(strict_types=1);
 
 namespace Database\Factories;
 
+use Domain\Blogging\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
 class PostFactory extends Factory
 {
+    protected $model = Post::class;
     public function definition(): array
     {
         $title = $this->faker->words(5, true);
