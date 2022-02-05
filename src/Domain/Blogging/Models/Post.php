@@ -3,6 +3,7 @@
 namespace Domain\Blogging\Models;
 
 use Database\Factories\PostFactory;
+use Domain\Blogging\Collections\PostCollection;
 use Domain\Blogging\Models\Builders\PostBuilder;
 use Domain\Blogging\Models\Concerns\IsPost;
 use Domain\Shared\Models\User;
@@ -19,13 +20,14 @@ class Post extends Model
     use SoftDeletes;
 
     protected $fillable = [
-      'key',
-      'title',
-      'slug',
-      'body',
-      'description',
-      'published',
-      'user_id',
+        'uuid',
+        'key',
+        'title',
+        'slug',
+        'body',
+        'description',
+        'published',
+        'user_id',
     ];
 
     protected $casts = [
@@ -50,7 +52,14 @@ class Post extends Model
         return PostFactory::new();
     }
 
-    public  function newEloquentBuilder($query): PostBuilder
+    public function newCollection(array $models = []): PostCollection
+    {
+        return new PostCollection(
+            items: $models
+        );
+    }
+
+    public function newEloquentBuilder($query): PostBuilder
     {
         return new PostBuilder(
             query: $query

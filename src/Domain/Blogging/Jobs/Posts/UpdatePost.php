@@ -3,6 +3,7 @@ declare(strict_types=1);
 namespace Domain\Blogging\Jobs\Posts;
 
 use Domain\Blogging\Actions\UpdatePost as UpdatePostAction;
+use Domain\Blogging\Aggregates\PostAggregate;
 use Domain\Blogging\Models\Post;
 use Domain\Blogging\ValueObjects\PostValueObject;
 use Illuminate\Bus\Queueable;
@@ -26,6 +27,14 @@ class UpdatePost implements ShouldQueue
     public function handle()
     {
         $post = Post::find($this->postID);
+
+        PostAggregate::retrieve(
+            uuid: $post->uuid,
+        )->updatePost(
+            object: $this->object,
+            postID: $post->id,
+        )->persist();
+
         UpdatePostAction::handle(
             object:  $this->object,
             post: $post,

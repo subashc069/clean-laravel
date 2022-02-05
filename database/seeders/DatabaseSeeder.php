@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
             'last_name' => 'Chaudhary',
             'email' => 'bcoolboy8@gmail.com',
         ]);
-        Post::factory(20)->for(
-            $user
-        )->create();
+//        Post::factory(20)->for(
+//            $user
+//        )->create();
     }
 }
